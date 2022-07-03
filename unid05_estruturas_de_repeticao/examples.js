@@ -26,3 +26,16 @@ for (let contador = 1; contador <= 100; contador++) {
 }
 
  */
+
+/** Exemplo 3
+ * Vamos criar um laço de repetição While que irá iterar 12 vezes o ciclo e imprimir no
+console apenas quando o valor dessa iteração for ímpar.
+*/
+let counter = 1;
+
+while (counter <= 12) {
+    if (counter % 2 != 0) {
+        console.log(counter);
+    }
+    counter++;
+}
