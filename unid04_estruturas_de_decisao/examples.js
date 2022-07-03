@@ -1,6 +1,6 @@
 "use strict";
 
-/** exemplo 1 
+/** Exemplo 1 
  * Um grupo de amigos resolveu que toda quarta-feira é dia de feijoada! E para lembrar a
 todos desse momento festivo, resolveram criar um algoritmo que verifica em qual dia
 da semana estamos. “Se hoje for quarta-feira”, significa que é dia de Feijoada!
@@ -17,7 +17,8 @@ if (daysOfWeek == "quarta-feira") {
  * Um Professor precisa automatizar os resultados dos alunos referente às avaliações
 que foram realizadas no final do curso e pediu nossa ajuda para criar um algoritmo que
 calcule a média de duas notas e informe se o aluno foi aprovado ou não!
- */
+    
+ ** Exemplo 4: Desta vez, iremos criar uma Condicional utilizando o IF ELSE.
 
 let nota1, nota2, mediaFinal;
 
@@ -32,14 +33,14 @@ if (mediaFinal < 7) {
 } else {
     console.log("O aluno está aprovado!");
 }
+ */
 
 
-/** Example 3
+/** Exemplo 3
  * O Departamento de Trânsito da sua cidade procurou você para criar um algoritmo que
 receba do usuário a sua idade e retorne como resposta a informação se o mesmo pode
 ou não dirigir. Sabendo que a idade mínima para solicitar a carteira de motorista é 18
 anos.
-
 
 let age;
 
@@ -52,3 +53,23 @@ if (age >= 18) {
 }
 
  */
+
+/** Examplo 5
+ * A Prefeitura da sua cidade ficou sabendo que você é programador e o procurou para
+ajudá-los com um novo projeto! Eles pretendem instalar um semáforo no cruzamento
+mais movimentado do seu bairro, mas precisam de algoritmo que faça os semáforos
+funcionarem!
+ */
+let trafficLight;
+
+trafficLight = prompt("Insira a cor do semáforo: ");
+
+if (trafficLight === "verde") {
+    console.log("Pode seguir!");
+} else if (trafficLight === "amarelo") {
+    console.log("ATENÇÃO! O sinal vai fechar!");
+} else if (trafficLight === "vermelho") {
+    console.log("PARE! Espero o sinal abrir");
+} else {
+    console.log("Cor inválida! Digite 'vermelho', 'amarelo' ou 'verde'!");
+}
