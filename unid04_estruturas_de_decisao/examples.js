@@ -17,6 +17,7 @@ if (daysOfWeek == "quarta-feira") {
  * Um Professor precisa automatizar os resultados dos alunos referente às avaliações
 que foram realizadas no final do curso e pediu nossa ajuda para criar um algoritmo que
 calcule a média de duas notas e informe se o aluno foi aprovado ou não!
+ */
 
 let nota1, nota2, mediaFinal;
 
@@ -28,20 +29,17 @@ console.log("A média final é " + mediaFinal + ".\n\n");
 
 if (mediaFinal < 7) {
     console.log("O aluno foi reprovado!");
-}
-
-if (mediaFinal >= 7) {
+} else {
     console.log("O aluno está aprovado!");
 }
 
-*/
 
 /** Example 3
  * O Departamento de Trânsito da sua cidade procurou você para criar um algoritmo que
 receba do usuário a sua idade e retorne como resposta a informação se o mesmo pode
 ou não dirigir. Sabendo que a idade mínima para solicitar a carteira de motorista é 18
 anos.
- */
+
 
 let age;
 
@@ -52,3 +50,5 @@ if (age >= 18) {
 } else {
     console.log("Ops! Você ainda não pode dirigir!");
 }
+
+ */
