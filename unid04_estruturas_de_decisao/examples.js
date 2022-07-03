@@ -59,7 +59,7 @@ if (age >= 18) {
 ajudá-los com um novo projeto! Eles pretendem instalar um semáforo no cruzamento
 mais movimentado do seu bairro, mas precisam de algoritmo que faça os semáforos
 funcionarem!
- */
+
 let trafficLight;
 
 trafficLight = prompt("Insira a cor do semáforo: ");
@@ -72,4 +72,39 @@ if (trafficLight === "verde") {
     console.log("PARE! Espero o sinal abrir");
 } else {
     console.log("Cor inválida! Digite 'vermelho', 'amarelo' ou 'verde'!");
+}
+ */
+
+/** Examplo 6
+ * Precisamos construir uma calculadora simples, que consiga efetuar as operações
+básicas de soma, subtração, multiplicação ou divisão, de acordo com a escolha do
+usuário. Para que a calculadora funcione, o usuário precisa obter os dois valores iniciais
+e a operação desejada.
+ */
+let firstNumber, secondNumber, operator, result;
+
+firstNumber = parseInt(prompt("Insira o primeiro número: "));
+secondNumber = parseInt(prompt("Insira o segundo número: "));
+operator = prompt("Insira o sinal do operador: ");
+
+if (secondNumber == 0 && operator == "/") {
+    alert("Operação não permitida!");
+    secondNumber = parseInt(prompt("Insira o segundo número: "));
+    operator = prompt("Insira o sinal do operador: ");
+}
+
+if (operator == "+") {
+    result = firstNumber + secondNumber;
+    console.log("A soma de " + firstNumber + " " + operator + " " + secondNumber + " = " + result + ".");
+} else if (operator == "-") {
+    result = firstNumber - secondNumber;
+    console.log("A subtração de " + firstNumber + " " + operator + " " + secondNumber + " = " + result + ".");
+} else if (operator == "/") {
+    result = firstNumber / secondNumber;
+    console.log("A divisão de " + firstNumber + " " + operator + " " + secondNumber + " = " + result + ".");
+} else if (operator == "*") {
+    result = firstNumber * secondNumber;
+    console.log("A multiplicação de " + firstNumber + " " + operator + " " + secondNumber + " = " + result + ".");
+} else {
+    console.log("Operação inválida! Digite +, -, * ou /!");
 }
