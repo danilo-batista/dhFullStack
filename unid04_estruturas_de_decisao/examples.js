@@ -80,7 +80,7 @@ if (trafficLight === "verde") {
 básicas de soma, subtração, multiplicação ou divisão, de acordo com a escolha do
 usuário. Para que a calculadora funcione, o usuário precisa obter os dois valores iniciais
 e a operação desejada.
- */
+
 let firstNumber, secondNumber, operator, result;
 
 firstNumber = parseInt(prompt("Insira o primeiro número: "));
@@ -107,4 +107,43 @@ if (operator == "+") {
     console.log("A multiplicação de " + firstNumber + " " + operator + " " + secondNumber + " = " + result + ".");
 } else {
     console.log("Operação inválida! Digite +, -, * ou /!");
+}
+ */
+
+/** Exemplo 7
+ * Um restaurante da sua cidade comprou um painel digital para recepcionar seus clientes
+e informar qual o prato do dia, de acordo com o dia da semana! Todavia, o painel não
+veio programado e você foi contratado para criar um algoritmo que faça o painel
+funcionar de acordo com as regras a seguir:
+ * Na primeira linha deve ser exibido sempre o dia da semana;
+ * Na segunda linha, deve ser exibido o prato principal do dia como segue:
+■ Toda segunda-feira, o prato principal será “Macarronada”;
+■ Toda terça-feira, o prato principal será “Carne de Panela”;
+■ Toda quarta-feira, o prato principal será “Peixe à Moda”;
+■ Toda quinta-feira, o prato principal será “Lasanha”;
+■ Toda sexta-feira, o prato principal será “Escondidinho”;
+■ Aos sábados e domingos será “Feijoada”;
+ */
+let dayOfWeek
+
+dayOfWeek = prompt("Insira o dia da semana para encontrarmos o cardápio: ");
+
+switch (dayOfWeek) {
+    case "segunda-feira":
+        console.log("\nMacarronada");
+        break;
+    case "terça-feira":
+        console.log("\nCarne de Panela");
+        break;
+    case "quarta-feira":
+        console.log("\nPeixe à Moda");
+        break;
+    case "quinta-feira":
+        console.log("\nLasanha");
+        break;
+    case "sexta-feira":
+        console.log("\nEscondidinho");
+        break;
+    default:
+        console.log("\nFeijoada");
 }
