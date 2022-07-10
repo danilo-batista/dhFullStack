@@ -5,17 +5,29 @@
 valores pares. Ao final, exiba os valores digitados, a relação dos números
 pares e o valor da soma desses pares.
  */
-let number, result = 0, counter = 1;
+let number, evenPlusResults = 0, counter = 1;
+let inserts = "", plusInserts = "";
 
 while (counter <= 10) {
-    number = parseInt(prompt("Insira um número: "));
-    if (number % 2 == 0) {
-        console.log(number + " é um número par.");
-        result = result + number;
+    number = parseInt(prompt("Insira o " + counter + "o número: "));
+
+    if (counter < 10) {
+        inserts = inserts + number + ", ";
+        if (number % 2 == 0) {
+            evenPlusResults = evenPlusResults + number;
+            plusInserts = plusInserts + number + ", ";
+        }
     } else {
-        console.log(number);
+        inserts = inserts + number + ". ";
+        if (number % 2 == 0) {
+            evenPlusResults = evenPlusResults + number;
+            plusInserts = plusInserts + number + ". ";
+        }
     }
+
     counter++;
 }
 
-console.log("A soma dos números pares é: ", result);
+console.log("Os números digitados foram: ", inserts);
+console.log("Os números identificados como pares foram: ", plusInserts);
+console.log("A soma dos números pares é: ", evenPlusResults);
