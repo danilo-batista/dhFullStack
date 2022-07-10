@@ -12,41 +12,42 @@ números primos.
 // PARES: numero % 2 == 0
 // PRIMOS: dois dividendos
 
-let numero, somaPares, somaPrimos;
+let number, evenPlusResults = 0, primeNumbersResults = 0;
+let inserts = "", plusInserts = ""; primeInserts = "";
+let counter = 1;
 
-contador = 0;
-somaPares = 0;
-somaPrimos = 0;
-totalDivisoes = 0;
+while (counter <= 10) {
+    number = parseInt(prompt("Insira o " + counter + "o número: "));
 
-while (contador < 10) {
-    numero = parseInt(prompt("Insira o " + (contador + 1) + "º número: "));
+    let divisor = 0;
+    for (let i = 1; i <= number; i++) {
+        if (number % i == 0) {
+            divisor++;
+        }
+    }
+    if (divisor == 2) {
+        primeInserts = primeInserts + number + ", ";
+        primeNumbersResults = primeNumbersResults + number;
+    }
 
-    if (numero % 2 == 0) {
-        totalDivisoes++;
-        if (totalDivisoes == 2) {
-            somaPrimos = somaPrimos + numero;
-            console.log("O número " + numero + " é primo!");
-            console.log(somaPrimos);
+    if (counter < 10) {
+        inserts = inserts + number + ", ";
+        if (number % 2 == 0) {
+            evenPlusResults = evenPlusResults + number;
+            plusInserts = plusInserts + number + ", ";
+        }
+    } else {
+        inserts = inserts + number + ". ";
+        if (number % 2 == 0) {
+            evenPlusResults = evenPlusResults + number;
+            plusInserts = plusInserts + number + ". ";
         }
     }
 
-    contador++;
+    counter++;
 }
-console.log("A soma dos primos é " + somaPrimos);
 
-
-/*
-while(contador < 10){
-    numero = parseInt(prompt("Insira o " + (contador+1) + "º número: "));
-    
-    if(numero % 2 == 0){
-        console.log("O número " + numero + " é par!");
-        somaPares = somaPares + numero;
-    } else {
-        console.log(numero);
-    }
-    contador++;
-}
-console.log("A soma dos pares é " + somaPares);
-*/
+console.log("Os números digitados foram: ", inserts);
+console.log("Os números identificados como pares foram: ", plusInserts);
+console.log("A soma dos números pares é: ", evenPlusResults);
+console.log("A soma dos números primos é: ", primeNumbersResults);
