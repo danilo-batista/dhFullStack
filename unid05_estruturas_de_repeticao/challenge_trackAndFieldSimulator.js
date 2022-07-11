@@ -23,6 +23,6 @@ while (checkpointsList != 0) {
     checkpointsList = parseInt(prompt("\tInsira a " + i + "ª parada(checkpoint): "));
     i++;
 }
-console.log("\n\tSeu percurso terá " + travelDistance.toLocaleString("pt-Br") + "km com " + (i - 2) + " paradas(checkpoints).\n");
+console.log("\n\tSeu percurso terá " + travelDistance.toLocaleString("pt-Br") + "km com " + (i - 1) + " paradas(checkpoints).\n");
 
 console.log("\n*************************************************************************\n");
