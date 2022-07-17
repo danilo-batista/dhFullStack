@@ -11,6 +11,7 @@ const ERRORS_LIST = [
     formattedLine + "  *** Opção inválida! Tente novamente! ***" + formattedLine,
     formattedLine + "  *** Conta inexistente! ***" + formattedLine,
     formattedLine + "  *** Saque não permitido! ***" + formattedLine,
+    formattedLine + "  *** Depósito não permitido! ***" + formattedLine
 ];
 
 /* Transações | Funcionalidades disponíveis */
@@ -42,7 +43,7 @@ function listBalance(balance) {
     return account.balance.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
 }
 
-/** Sacar dinheiro (conta, valor) */
+/** Sacar dinheiro (valor) */
 function withdraw(value) {
     if (value > 0) {
         account.balance = account.balance - value;
@@ -51,6 +52,18 @@ function withdraw(value) {
     }
 
     STATEMENT.push("  Saque | " + new Date().toLocaleString("pt-BR"));
+    return account.balance.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
+}
+
+/** Depositar dinheiro (valor) */
+function deposit(value) {
+    if (value > 0) {
+        account.balance = account.balance + value;
+    } else {
+        console.log(ERRORS_LIST[3]);
+    }
+
+    STATEMENT.push("  Depósito | " + new Date().toLocaleString("pt-BR"));
     return account.balance.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
 }
 
@@ -65,3 +78,7 @@ console.log(listBalance(activeAccount.balance));
 let value = parseFloat(prompt("Valor a sacar: "));
 console.log(activeAccount.balance);
 console.log(withdraw(value));
+
+value = parseFloat(prompt("Valor a depositar: "));
+console.log(activeAccount.balance);
+console.log(deposit(value));
