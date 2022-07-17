@@ -3,6 +3,7 @@ const prompt = require("prompt-sync")();
 
 let accounts = [{ id: 1, name: "Danilo Batista", balance: 1500 }, { id: 2, name: "Luis Mauricio", balance: 1200 }];
 let account = { id: 0, name: "", balance: 0 };
+let accountDestination = { id: 0, name: "", balance: 0 };
 
 const STATEMENT = [];
 
@@ -11,7 +12,8 @@ const ERRORS_LIST = [
     formattedLine + "  *** Opção inválida! Tente novamente! ***" + formattedLine,
     formattedLine + "  *** Conta inexistente! ***" + formattedLine,
     formattedLine + "  *** Saque não permitido! ***" + formattedLine,
-    formattedLine + "  *** Depósito não permitido! ***" + formattedLine
+    formattedLine + "  *** Depósito não permitido! ***" + formattedLine,
+    formattedLine + "  *** Transferência não permitida! ***" + formattedLine
 ];
 
 /* Transações | Funcionalidades disponíveis */
@@ -67,6 +69,20 @@ function deposit(value) {
     return account.balance.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
 }
 
+/** Transferir dinheiro (conta, contaDestino, valor) */
+function transfer(value) {
+
+}
+
+/** Extrato das ações realizadas */
+function listStatements() {
+    console.log("\n\t-------------------------------------------------------------------------\n");
+    for (let i = 0; i < STATEMENT.length; i++) {
+        console.log("\t" + STATEMENT[i].toUpperCase());
+    }
+    console.log("\n\t-------------------------------------------------------------------------\n");
+}
+
 /** Build tests*/
 let activeAccount = selectAccount();
 
@@ -82,3 +98,13 @@ console.log(withdraw(value));
 value = parseFloat(prompt("Valor a depositar: "));
 console.log(activeAccount.balance);
 console.log(deposit(value));
+
+listStatements();
+
+// value = parseFloat(prompt("Valor a transferir: "));
+// console.log(activeAccount.balance);
+// console.log(transfer(account, value));
+
+// console.log(accountDestination.balance)
+// accountDestination.balance = deposit(value);
+// console.log(accountDestination.balance)
