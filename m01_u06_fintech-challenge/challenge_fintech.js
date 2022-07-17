@@ -10,6 +10,7 @@ let formattedLine = "\n---------------------------------------------------------
 const ERRORS_LIST = [
     formattedLine + "  *** Opção inválida! Tente novamente! ***" + formattedLine,
     formattedLine + "  *** Conta inexistente! ***" + formattedLine,
+    formattedLine + "  *** Saque não permitido! ***" + formattedLine,
 ];
 
 /* Transações | Funcionalidades disponíveis */
@@ -36,8 +37,20 @@ function selectAccount() {
 /** Consultar saldo */
 function listBalance(balance) {
     account.balance = balance;
-    STATEMENT.push("  Consulta | " + Date().toLocaleString("pt-BR"));
+    STATEMENT.push("  Consulta | " + new Date().toLocaleString("pt-BR"));
 
+    return account.balance.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
+}
+
+/** Sacar dinheiro (conta, valor) */
+function withdraw(value) {
+    if (value > 0) {
+        account.balance = account.balance - value;
+    } else {
+        console.log(ERRORS_LIST[2]);
+    }
+
+    STATEMENT.push("  Saque | " + new Date().toLocaleString("pt-BR"));
     return account.balance.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
 }
 
@@ -49,3 +62,6 @@ console.log(activeAccount.name);
 console.log(activeAccount.balance);
 
 console.log(listBalance(activeAccount.balance));
+let value = parseFloat(prompt("Valor a sacar: "));
+console.log(activeAccount.balance);
+console.log(withdraw(value));
