@@ -113,14 +113,14 @@ while (true) {
             case 1: //consultarSaldo
                 listBalance(account.balance);
 
-                STATEMENT.push("  Consulta | " + new Date().toLocaleString("pt-BR"));
+                STATEMENT.push("  Consulta | " + account.balance.toLocaleString("pt-BR", { style: "currency", currency: "BRL" }) + " | " + new Date().toLocaleString("pt-BR"));
                 console.log("\n\t>>> TITULAR: " + account.name + " | SALDO: " + account.balance + "\n")
                 break;
             case 2: //sacarDinheiro
                 let amountToBeWithdrawn = parseFloat(prompt("\t• Insira o valor que deseja sacar: "));
 
                 withdraw(amountToBeWithdrawn);
-                STATEMENT.push("  Saque | " + new Date().toLocaleString("pt-BR"));
+                STATEMENT.push("  Saque | " + account.balance.toLocaleString("pt-BR", { style: "currency", currency: "BRL" }) + " | " + new Date().toLocaleString("pt-BR"));
 
                 console.log("\n\t>>> TITULAR: " + account.name + " | SALDO: " + account.balance + "\n")
                 break;
@@ -128,11 +128,13 @@ while (true) {
                 let amountToBeDeposited = parseFloat(prompt("\t• Insira o valor que deseja depositar: "));
 
                 deposit(amountToBeDeposited);
-                STATEMENT.push("  Depósito | " + new Date().toLocaleString("pt-BR"));
+                STATEMENT.push("  Depósito | " + account.balance.toLocaleString("pt-BR", { style: "currency", currency: "BRL" }) + " | " + new Date().toLocaleString("pt-BR"));
 
                 console.log("\n\t>>> TITULAR: " + account.name + " | SALDO: " + account.balance + "\n")
                 break;
-
+            case 5:
+                listStatements();
+                break;
             default:
                 console.log(ERRORS_LIST[4]);
         }
