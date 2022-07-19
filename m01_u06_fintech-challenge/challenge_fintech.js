@@ -8,36 +8,37 @@ let accountDestination = { id: 0, name: "", balance: 0 };
 
 const STATEMENT = [];
 
-let formattedLine = "\n-------------------------------------------------------------------------------------\n";
+let formattedLine = "\n\t---------------------------------------------------------------------------------\n";
 const ERRORS_LIST = [
-    formattedLine + "  *** Opção inválida! Tente novamente! ***" + formattedLine,
-    formattedLine + "  *** Conta inexistente! ***" + formattedLine,
-    formattedLine + "  *** Saque não permitido! ***" + formattedLine,
-    formattedLine + "  *** Depósito não permitido! ***" + formattedLine,
-    formattedLine + "  *** Transferência não permitida! ***" + formattedLine
+    formattedLine + "\t  *** Opção inexistente! Acesso negado. Tente novamente! ***" + formattedLine,
+    formattedLine + "\t  *** Conta inexistente! ***" + formattedLine,
+    formattedLine + "\t  *** Saque não permitido! ***" + formattedLine,
+    formattedLine + "\t  *** Depósito não permitido! ***" + formattedLine,
+    formattedLine + "\t  *** Depósito não permitido! ***" + formattedLine,
+    formattedLine + "\t  *** Depósito não permitido! ***" + formattedLine,
+    formattedLine + "\t  *** Operação bancária inexiste! Tente novamente! ***" + formattedLine
 ];
 
 /* Transações | Funcionalidades disponíveis */
 
 /** Selecionar Contas */
 function selectAccount() {
-    //console.log(formattedLine);
-    console.log("\t• Insira o número da conta: \n");
+    console.log("\n\t• Insira o número da conta: ");
 
     let accountId = parseInt(prompt("\tConta escolhida: "));
 
-    for (let i = 0; i < accounts.length; i++) {
-        if (accountId === accounts[i].id) {
-            account.id = accounts[i].id;
-            account.name = accounts[i].name;
-            account.balance = accounts[i].balance;
+    while (account.id != accountId) {
+        for (let i = 0; i < accounts.length; i++) {
+            if (accountId === accounts[i].id) {
+                account.id = accounts[i].id;
+                account.name = accounts[i].name;
+                account.balance = accounts[i].balance;
+                return account;
+            };
         };
-    };
 
-    if (!accountId) {
         console.log(ERRORS_LIST[1]);
-    } else {
-        return account;
+        accountId = parseInt(prompt("\tConta escolhida: "));
     };
 }
 
@@ -50,22 +51,25 @@ function listBalance(balance) {
 /** Sacar dinheiro (valor) */
 function withdraw(account, value) {
     let mainAccount = account;
-    if (value <= 0) {
+
+    while (value <= 0) {
         console.log(ERRORS_LIST[2]);
-    } else {
-        mainAccount.balance = mainAccount.balance - value;
-        return mainAccount;
+        return operationsMenu();
     }
+    mainAccount.balance = mainAccount.balance - value;
+
+    return mainAccount;
 }
 
 /** Depositar dinheiro (valor) */
 function deposit(account, value) {
-    if (value <= 0) {
+    while (value <= 0) {
         console.log(ERRORS_LIST[3]);
-    } else {
-        account.balance = account.balance + value;
-        return account;
-    };
+        return operationsMenu();
+    }
+    account.balance = account.balance + value;
+
+    return account;
 }
 
 /** Transferir dinheiro (conta, contaDestino, valor) */
@@ -91,87 +95,123 @@ function transfer(accountDestinationId, value) {
 
 /** Extrato das ações realizadas */
 function listStatements() {
-    console.log("\n\t-------------------------------------------------------------------------\n");
+    console.log(formattedLine);
     for (let i = 0; i < STATEMENT.length; i++) {
         console.log("\t" + (i + 1) + ") " + STATEMENT[i].toUpperCase());
     }
-    console.log("\n\t-------------------------------------------------------------------------\n");
+    console.log(formattedLine);
 }
 
+/** Encerrar o programa */
 function logoff() {
-    console.log("\n------------------- APLICATIVO FINALIZADO COM SUCESSO! ------------------------\n");
+    console.log("\n----------------------------- APLICATIVO FINALIZADO COM SUCESSO! --------------------------------\n");
     return -1;
+}
+
+/** Iniciar o programa */
+function start() {
+    console.log("\tEscolha a sua opção para iniciar: [9] Menu | [0] Sair");
+    let softwareStart = parseInt(prompt("\t> Opção: "));
+
+    while (softwareStart !== 0 && softwareStart !== 9) {
+        console.log(ERRORS_LIST[0]);
+        console.log("\tEscolha a sua opção para iniciar: [9] Menu | [0] Sair");
+        softwareStart = parseInt(prompt("\t> Opção: "));
+    };
+
+    if (softwareStart === 9) {
+        return selectAccount();
+    } else {
+        return logoff();
+    }
+}
+
+/** Escolher transações */
+function operationsMenu() {
+    console.log("\tOperações bancárias:\n\t[1] Saldo\n\t[2] Saque\n\t[3] Depósito\n\t[4] Transferência\n\t[5] Histórico\n\t[0] Sair");
+    options = parseInt(prompt("\t> Operação escolhida: "));
+    return options;
 }
 /** Start */
 console.clear();
-console.log("\n------------------------ Bem-Vindo ao Digital Bank ----------------------------\n");
-console.log("\n\tEscolha a sua opção para iniciar: [9] Menu | [0] Sair\n");
+console.log("\n--------------------------------- Bem-Vindo ao Digital Bank -------------------------------------\n");
 
-let softwareStart = parseInt(prompt("\t\tOpção: "));
-if (softwareStart != 0) {
-    account = selectAccount();
-} else {
-    return logoff();
-};
-
+start();
 while (true) {
-    let options;
+    options = operationsMenu();
+    switch (options) {
+        case 1: //consultarSaldo
+            listBalance(account.balance);
 
-    if (softwareStart == 9) {
-        console.log("\n\tOperações bancárias:\n\n\t[1] Saldo\n\t[2] Saque\n\t[3] Depósito\n\t[4] Transferência\n\t[5] Histórico\n");
-        options = parseInt(prompt("\tOperação escolhida: "));
+            STATEMENT.push("Consulta | "
+                + account.balance.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
+                + " | "
+                + new Date().toLocaleString("pt-BR")
+            );
+            console.log(formattedLine + "\t>>> TITULAR: "
+                + account.name
+                + " | SALDO: "
+                + account.balance.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
+                + formattedLine
+            );
 
-        switch (options) {
-            case 1: //consultarSaldo
-                listBalance(account.balance);
+            break;
+        case 2: //sacarDinheiro
+            let amountToBeWithdrawn = parseFloat(prompt("\t• Insira o valor que deseja sacar: "));
 
-                STATEMENT.push("Consulta | " + account.balance.toLocaleString("pt-BR", { style: "currency", currency: "BRL" }) + " | " + new Date().toLocaleString("pt-BR"));
-                console.log("\n\t>>> TITULAR: " + account.name + " | SALDO: " + account.balance + "\n")
-                break;
-            case 2: //sacarDinheiro
-                let amountToBeWithdrawn = parseFloat(prompt("\t• Insira o valor que deseja sacar: "));
+            withdraw(account, amountToBeWithdrawn);
+            STATEMENT.push("Saque | "
+                + account.balance.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
+                + " | "
+                + new Date().toLocaleString("pt-BR")
+            );
+            console.log(formattedLine + "\t>>> TITULAR: "
+                + account.name
+                + " | SALDO: "
+                + account.balance.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
+                + formattedLine
+            );
 
-                withdraw(account, amountToBeWithdrawn);
-                STATEMENT.push("Saque | " + account.balance.toLocaleString("pt-BR", { style: "currency", currency: "BRL" }) + " | " + new Date().toLocaleString("pt-BR"));
+            break;
+        case 3: //depositarDinheiro
+            let amountToBeDeposited = parseFloat(prompt("\t• Insira o valor que deseja depositar: "));
 
-                console.log("\n\t>>> TITULAR: " + account.name + " | SALDO: " + account.balance + "\n")
-                break;
-            case 3: //depositarDinheiro
-                let amountToBeDeposited = parseFloat(prompt("\t• Insira o valor que deseja depositar: "));
+            deposit(account, amountToBeDeposited);
+            STATEMENT.push("Depósito | "
+                + account.balance.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
+                + " | "
+                + new Date().toLocaleString("pt-BR")
+            );
+            console.log(formattedLine + "\t>>> TITULAR: "
+                + account.name
+                + " | SALDO: "
+                + account.balance.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
+                + formattedLine
+            );
 
-                deposit(account, amountToBeDeposited);
-                STATEMENT.push("Depósito | " + account.balance.toLocaleString("pt-BR", { style: "currency", currency: "BRL" }) + " | " + new Date().toLocaleString("pt-BR"));
+            break;
+        case 4: //transferirDinheiro
+            let amountToBeTransferred = parseFloat(prompt("\t• Insira o valor que deseja transferir: "));
+            let accountDestinationId = parseInt(prompt("\tConta escolhida: "));
 
-                console.log("\n\t>>> TITULAR: " + account.name + " | SALDO: " + account.balance + "\n")
-                break;
-            case 4: //transferirDinheiro
-                let amountToBeTransferred = parseFloat(prompt("\t• Insira o valor que deseja transferir: "));
-                let accountDestinationId = parseInt(prompt("\tConta escolhida: "));
+            let accountDestination = transfer(accountDestinationId, amountToBeTransferred);
+            STATEMENT.push("Transferência:\n\t- Valor transferido da conta "
+                + account.id
+                + " para a conta "
+                + accountDestination.id
+                + " foi de "
+                + amountToBeTransferred.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
+                + ".\n\t  "
+                + new Date().toLocaleString("pt-BR")
+            );
 
-                let accountDestination = transfer(accountDestinationId, amountToBeTransferred);
-
-                STATEMENT.push("Transferência:\n\t- Valor transferido da conta "
-                    + account.id
-                    + " para a conta "
-                    + accountDestination.id
-                    + " foi de "
-                    + amountToBeTransferred.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
-                    + ".\n\t  "
-                    + new Date().toLocaleString("pt-BR")
-                );
-                break;
-            case 5: //extrato
-                listStatements();
-                break;
-            default:
-                console.log(ERRORS_LIST[4]);
-        }
-    } else if (softwareStart === 0) {
-        return logoff();
-    } else {
-        console.log("\n\t*** Opção inválida! Tente novamente! ***\n");
-        console.log("-------------------------------------------------------------------------------------\n");
-    }
-
-    softwareStart = parseInt(prompt("\tDeseja continuar? [9] Menu | [0] Sair "));
-}
+            break;
+        case 5: //extrato
+            listStatements();
+            break;
+        case 0: //sair
+            return logoff();
+        default:
+            console.log(ERRORS_LIST[6]);
+    };
+};
