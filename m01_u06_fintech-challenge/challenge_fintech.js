@@ -30,43 +30,46 @@ function selectAccount() {
             account.id = accounts[i].id;
             account.name = accounts[i].name;
             account.balance = accounts[i].balance;
-            return account;
-        } else {
-            console.log(ERRORS_LIST[1]);
         }
     }
+
+    if (!accountId) {
+        console.log(ERRORS_LIST[1]);
+    } else {
+        return account;
+    }
+
+
+    // else {
+    //         console.log(ERRORS_LIST[1]);
+    //     }
+
 }
 
 /** Consultar saldo */
 function listBalance(balance) {
     account.balance = balance;
-    STATEMENT.push("  Consulta | " + new Date().toLocaleString("pt-BR"));
-
-    return account.balance.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
+    return account.balance.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 }
 
 /** Sacar dinheiro (valor) */
 function withdraw(value) {
-    if (value > 0) {
-        account.balance = account.balance - value;
-    } else {
+    if (value <= 0) {
         console.log(ERRORS_LIST[2]);
+    } else {
+        account.balance = account.balance - value;
+        return account.balance.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
     }
-
-    STATEMENT.push("  Saque | " + new Date().toLocaleString("pt-BR"));
-    return account.balance.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
 }
 
 /** Depositar dinheiro (valor) */
 function deposit(value) {
-    if (value > 0) {
-        account.balance = account.balance + value;
-    } else {
+    if (value <= 0) {
         console.log(ERRORS_LIST[3]);
-    }
-
-    STATEMENT.push("  Depósito | " + new Date().toLocaleString("pt-BR"));
-    return account.balance.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
+    } else {
+        account.balance = account.balance + value;
+        return account.balance.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+    };
 }
 
 /** Transferir dinheiro (conta, contaDestino, valor) */
@@ -83,28 +86,62 @@ function listStatements() {
     console.log("\n\t-------------------------------------------------------------------------\n");
 }
 
-/** Build tests*/
-let activeAccount = selectAccount();
+function logoff() {
+    console.log("\n------------------- APLICATIVO FINALIZADO COM SUCESSO! ------------------------\n");
+    return -1;
+}
+/** Start */
+console.clear();
+console.log("\n------------------------ Bem-Vindo ao Digital Bank ----------------------------\n");
+console.log("\n\tEscolha a sua opção para iniciar: [9] Menu | [0] Sair\n");
 
-console.log(activeAccount.id);
-console.log(activeAccount.name);
-console.log(activeAccount.balance);
+let softwareStart = parseInt(prompt("\t\tOpção: "));
+if (softwareStart != 0) {
+    account = selectAccount()
+} else {
+    return logoff()
+};
 
-console.log(listBalance(activeAccount.balance));
-let value = parseFloat(prompt("Valor a sacar: "));
-console.log(activeAccount.balance);
-console.log(withdraw(value));
+while (true) {
+    let options;
 
-value = parseFloat(prompt("Valor a depositar: "));
-console.log(activeAccount.balance);
-console.log(deposit(value));
+    if (softwareStart == 9) {
+        console.log("\n\tOperações bancárias:\n\n\t[1] Saldo\n\t[2] Saque\n\t[3] Depósito\n\t[4] Transferência\n\t[5] Histórico\n");
+        options = parseInt(prompt("\tOperação escolhida: "));
 
-listStatements();
+        switch (options) {
+            case 1: //consultarSaldo
+                listBalance(account.balance);
 
-// value = parseFloat(prompt("Valor a transferir: "));
-// console.log(activeAccount.balance);
-// console.log(transfer(account, value));
+                STATEMENT.push("  Consulta | " + new Date().toLocaleString("pt-BR"));
+                console.log("\n\t>>> TITULAR: " + account.name + " | SALDO: " + account.balance + "\n")
+                break;
+            case 2: //sacarDinheiro
+                let amountToBeWithdrawn = parseFloat(prompt("\t• Insira o valor que deseja sacar: "));
 
-// console.log(accountDestination.balance)
-// accountDestination.balance = deposit(value);
-// console.log(accountDestination.balance)
+                withdraw(amountToBeWithdrawn);
+                STATEMENT.push("  Saque | " + new Date().toLocaleString("pt-BR"));
+
+                console.log("\n\t>>> TITULAR: " + account.name + " | SALDO: " + account.balance + "\n")
+                break;
+            case 3: //depositarDinheiro
+                let amountToBeDeposited = parseFloat(prompt("\t• Insira o valor que deseja depositar: "));
+
+                deposit(amountToBeDeposited);
+                STATEMENT.push("  Depósito | " + new Date().toLocaleString("pt-BR"));
+
+                console.log("\n\t>>> TITULAR: " + account.name + " | SALDO: " + account.balance + "\n")
+                break;
+
+            default:
+                console.log(ERRORS_LIST[4]);
+        }
+    } else if (softwareStart === 0) {
+        return logoff();
+    } else {
+        console.log("\n\t*** Opção inválida! Tente novamente! ***\n");
+        console.log("-------------------------------------------------------------------------------------\n");
+    }
+
+    softwareStart = parseInt(prompt("\tDeseja continuar? [9] Menu | [0] Sair "));
+}
