@@ -42,6 +42,14 @@ console.log(">(lastIndexOf) Achou na posição: " + buscaCor);
 buscaCor = cores.includes("Azul");
 console.log(">(includes) Achou? " + buscaCor);
 
+// Método: array.forEach(callback) - procura e retorna o resultado que satisfaça o processamento da função callback
+// - Não é assincrono e busca elementos fora de ordenação
+const notas = [7.2, 7.5, 8.4, 6.3, 9.1, 4.5, 6.8];
+
+notas.forEach(nota => {
+    if (nota < 7) console.log("nota: " + nota);
+});
+
 /** Exercício 1: Para este exercício contamos com o array alunos. Queremos saber
  * onde estão guardados os nomes de "João" e "Francisco". Utilize um dos métodos
  * de array. Declare as variáveis  indiceJoao, indiceFrancisco e armazene a
