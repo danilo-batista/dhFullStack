@@ -9,18 +9,19 @@
  * 
  * Tipos:
  * var:
- *  . Escopo global
+ *  . Escopo global / escopo de função: atualmente utilizada mais para retrocompatibilidade
  * let: 
  *  . Escopo apenas para o bloco de execução - {}
  *  . Não pode repetir 'let' para uma nova reatribuição
  * const:
- *  . Escopo global
+ *  . Escopo de bloco de execução - {}
  *  . Não nos permite alterar no futuro
  *  . Boa prática: constantes podem ser declaradas em caixa alta ou baixa, 
  * mas uma convenção comum é usar apenas caixa alta
  * (https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Statements/const)
  *  . Em arrays, não se pode declarar um array vazio e depois reatribuir um valor
- * diretamente nele. Só é permitido através do método .push()
+ * diretamente nele. Só é permitido através do método .push() ou atribuindo posição por
+ * posição.
  */
 
 /** Uso do var */
