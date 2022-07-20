@@ -7,11 +7,13 @@
  *      If (condicao) { o que será executado }
  *      Else { quando a condição não for realizada }
  *      Else if (nova condicao) { o que será executado }
+ *      if (condicao) ? (verdadeiro) : (falso) ----> ternário
  *
  *      . Boa prática: inicializar as variáveis com o tipo de dado que vão armazenar.
  *      . Um 'if' nem sempre precisa de um 'else' ou 'else if'
  *      . Podemos ter muitos 'else if', quantos forem necessários
  *      . Sempre que implementamos um 'else', ele será único
+ *      . Quanto menos operações lógicas, mais performático o código
  */
 
 /*
